@@ -14,7 +14,7 @@
     "install-ext": "bike-ext build vim-keybindings --install",
     "watch": "bike-ext watch vim-keybindings --install",
     "test": "bike-ext test vim-keybindings",
-    "package": "bike-ext package vim-keybindings",
+    "package": "rm -rf out/packages && mkdir -p out/packages && cd out/extensions && zip -q -r -X ../packages/vim-keybindings.bkext.zip vim-keybindings.bkext",
     "manual-test": "node scripts/generate-manual-test.ts"
   },
   "devDependencies": {
