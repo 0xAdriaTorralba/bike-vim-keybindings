@@ -1,0 +1,23 @@
+{
+  "name": "bike-vim-keybindings",
+  "version": "0.1.0",
+  "description": "Vim-style modal keybindings for the Bike 2 outliner",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xAdriaTorralba/bike-vim-keybindings"
+  },
+  "scripts": {
+    "build": "bike-ext build vim-keybindings",
+    "install-ext": "bike-ext build vim-keybindings --install",
+    "watch": "bike-ext watch vim-keybindings --install",
+    "test": "bike-ext test vim-keybindings",
+    "package": "bike-ext package vim-keybindings",
+    "manual-test": "node scripts/generate-manual-test.ts"
+  },
+  "devDependencies": {
+    "@bike-outliner/extension-kit": "git+https://github.com/bike-outliner/extension-kit.git#v0.64.0"
+  }
+}

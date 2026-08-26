@@ -1,0 +1,10 @@
+{
+  "$schema": "../../node_modules/@bike-outliner/extension-kit/schemas/manifest.schema.json",
+  "description": "Vim-style modal keybindings for Bike outlines: hjkl, counts, dd/yy/p, visual mode",
+  "author": "Adrià Torralba-Agell",
+  "url": "https://github.com/0xAdriaTorralba/bike-vim-keybindings",
+  "version": "0.1.0",
+  "api_version": "0.64.0",
+  "permissions": [],
+  "host_permissions": []
+}
