@@ -48,7 +48,7 @@ const RECIPES: Record<string, string> = {
   H: 'While focused in, press H: back out one level. At the document level H does nothing.',
   yy: 'On "Alpha" press y y: nothing visible changes, selection stays. Then on "Gamma" press p: a copy of Alpha with all its children, still a heading, appears after Gamma.',
   yj: 'On "Alpha 2" press y j: selection stays on Alpha 2. On "Gamma" press p: "Alpha 2" and "Beta" appear after Gamma.',
-  yk: 'On "Beta" press y k: then p pastes "Alpha 2" (hmm: Alpha 2 is a child) and "Beta" as siblings after the current row.',
+  yk: 'With "Alpha" expanded, on "Beta" press y k: "Alpha 2" and "Beta" are yanked. On "Gamma" press p: both appear after Gamma, at the same level as each other.',
   ygg: 'On "Beta" press y g g, then G and p: everything from the document start through Beta is pasted at the end (rows inside a copied parent are not duplicated).',
   yG: 'On "Beta" press y G, then g g and P: Beta through the last row are pasted at the top.',
   dd: 'On "Alpha 2" (a @done task) press d d: it disappears, "Beta" is selected. Press P: it comes back above Beta, still done. Press u: paste undone.',
@@ -57,7 +57,7 @@ const RECIPES: Record<string, string> = {
   dgg: 'On the second row press d g g: the first two rows vanish. Press u to undo.',
   dG: 'On "Gamma" press d G: everything from Gamma to the end vanishes; the previous row is selected. Press u to undo.',
   cc: 'On "Beta" press c c: the text clears, the row keeps its heading style, the caret blinks at the start and the status bar shows -- INSERT --. Type something, press Escape. Press p: the old "Beta" is pasted below.',
-  p: 'After y y on "Alpha", press p on "Alpha 1": the copy is inserted after "Alpha 2" (after the whole Alpha subtree is NOT expected; p pastes after the selected row\'s own subtree, so after Alpha 1). Press 3 p: three copies.',
+  p: 'After y y on "Alpha", press p on "Alpha 1": the copy of Alpha appears right after Alpha 1 and its children, before "Alpha 2" (p pastes after the selected row\'s own subtree, at the same level). Press 3 p: three copies. Press u to undo.',
   P: 'Press P on "Gamma": the register is pasted above Gamma and the pasted row is selected.',
   i: 'On "Beta" press i: caret at the start of Beta, status bar -- INSERT --. Type, then Escape: Beta is selected as a block again and the message disappears.',
   I: 'Same as i.',
@@ -173,8 +173,14 @@ const document: Node[] = [
 
 // MARK: - .bike serialisation
 
+/** XML escaping in the form Bike writes back, so a round trip through Bike leaves the file unchanged. */
 function escape(text: string): string {
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;')
 }
 
 /** Minimal inline markdown: **bold**, `code`. */
@@ -195,7 +201,8 @@ function renderRow(node: Node, depth: number): string {
   const attributes = [`id="${nextId()}"`]
   if (node.type && node.type !== 'body') attributes.push(`data-type="${node.type}"`)
   for (const [name, value] of Object.entries(node.attributes ?? {})) attributes.push(`data-${name}="${escape(value)}"`)
-  const lines = [`${pad}<li ${attributes.join(' ')}>`, `${pad}  <p>${inline(node.text)}</p>`]
+  const paragraph = node.text === '' ? '<p/>' : `<p>${inline(node.text)}</p>`
+  const lines = [`${pad}<li ${attributes.join(' ')}>`, `${pad}  ${paragraph}`]
   if (node.children?.length) {
     lines.push(`${pad}  <ul>`)
     for (const child of node.children) lines.push(renderRow(child, depth + 2))

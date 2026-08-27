@@ -47,7 +47,7 @@
             <p>Beta (a heading row)</p>
           </li>
           <li id="vimtest-012">
-            <p></p>
+            <p/>
           </li>
           <li id="vimtest-013" data-type="quote">
             <p>Delta (a quote row, with <strong>bold</strong> and <code>code</code> runs)</p>
@@ -133,7 +133,7 @@
             <p><code>yj</code> (Bike: <code>y j</code>) — On &quot;Alpha 2&quot; press y j: selection stays on Alpha 2. On &quot;Gamma&quot; press p: &quot;Alpha 2&quot; and &quot;Beta&quot; appear after Gamma.</p>
           </li>
           <li id="vimtest-038" data-type="task">
-            <p><code>yk</code> (Bike: <code>y k</code>) — On &quot;Beta&quot; press y k: then p pastes &quot;Alpha 2&quot; (hmm: Alpha 2 is a child) and &quot;Beta&quot; as siblings after the current row.</p>
+            <p><code>yk</code> (Bike: <code>y k</code>) — With &quot;Alpha&quot; expanded, on &quot;Beta&quot; press y k: &quot;Alpha 2&quot; and &quot;Beta&quot; are yanked. On &quot;Gamma&quot; press p: both appear after Gamma, at the same level as each other.</p>
           </li>
           <li id="vimtest-039" data-type="task">
             <p><code>ygg</code> (Bike: <code>y g g</code>) — On &quot;Beta&quot; press y g g, then G and p: everything from the document start through Beta is pasted at the end (rows inside a copied parent are not duplicated).</p>
@@ -165,7 +165,7 @@
         <p>Register (yank / paste)</p>
         <ul>
           <li id="vimtest-048" data-type="task">
-            <p><code>p</code> — After y y on &quot;Alpha&quot;, press p on &quot;Alpha 1&quot;: the copy is inserted after &quot;Alpha 2&quot; (after the whole Alpha subtree is NOT expected; p pastes after the selected row's own subtree, so after Alpha 1). Press 3 p: three copies.</p>
+            <p><code>p</code> — After y y on &quot;Alpha&quot;, press p on &quot;Alpha 1&quot;: the copy of Alpha appears right after Alpha 1 and its children, before &quot;Alpha 2&quot; (p pastes after the selected row&apos;s own subtree, at the same level). Press 3 p: three copies. Press u to undo.</p>
           </li>
           <li id="vimtest-049" data-type="task">
             <p><code>P</code> (Bike: <code>shift-p</code>) — Press P on &quot;Gamma&quot;: the register is pasted above Gamma and the pasted row is selected.</p>
@@ -318,7 +318,7 @@
         <p>Extension lifecycle</p>
         <ul>
           <li id="vimtest-095" data-type="task">
-            <p>Escape from insert mode using Bike's own handling (no vim binding in text mode): the -- INSERT -- message disappears and vim keys work again immediately.</p>
+            <p>Escape from insert mode using Bike&apos;s own handling (no vim binding in text mode): the -- INSERT -- message disappears and vim keys work again immediately.</p>
           </li>
           <li id="vimtest-096" data-type="task">
             <p>Bike &gt; Extensions Explorer: disable Vim Keybindings. j/k/dd do what Bike does by default (nothing vim-ish). Re-enable: vim keys are back without restarting Bike.</p>
