@@ -5,8 +5,8 @@ counts, `dd` / `yy` / `p` with an outline-aware register, `cc`, `o` / `O`, foldi
 visual (row) mode. Bike's block mode is normal mode, Bike's text mode is insert mode; nothing about how
 Bike edits text changes.
 
-Built for Bike 2 (build 293, extension API 0.64.0). Vim-style keys apply to rows, not to characters inside a
-row: once you are typing, you are in Bike.
+Built for Bike 2 (build 293, extension API 0.64.0); the test suite also passes on build 311. Vim-style keys
+apply to rows, not to characters inside a row: once you are typing, you are in Bike.
 
 ## Install
 
